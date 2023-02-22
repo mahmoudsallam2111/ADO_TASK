@@ -27,10 +27,11 @@ namespace ado_project
                 connection.Open();
                 // excute query
                 SqlDataReader sdr = command.ExecuteReader();
+                
 
                 //prepare data
                 List<Course> Courses = new List<Course>();
-                while (sdr.Read())
+                while (sdr.Read()) //only farward direction
                 {
                     Course c = new Course();
                     c.crs_Id = (int)sdr[0];
@@ -66,7 +67,7 @@ namespace ado_project
 
                 //prepare data
                 List<topic> topics = new List<topic>();
-                while (sdr2.Read())
+                while (sdr2.Read())  // read row by row
                 {
                     topic t = new topic();
                     t.topic_id = (int)sdr2[0];
@@ -230,7 +231,8 @@ namespace ado_project
                 string commandTxt = "delete from Course where Crs_Id = @id";
 
                 SqlCommand command = new SqlCommand(commandTxt, connection);
-                
+               
+
                 int iddd = Convert.ToInt32(this.dgv_course.Rows[e.RowIndex].Cells[2].Value);
                 command.Parameters.AddWithValue("id", iddd);
                 connection.Open();
